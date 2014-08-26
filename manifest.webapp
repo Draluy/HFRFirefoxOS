@@ -1,0 +1,18 @@
+{
+"name":"HFR pour Firefox OS",
+"chrome": { "navigation": true },
+"launch_path": "/index.html",
+"default_locale": "fr",
+"description" : "Application permettant de naviguer au sein du forum HFR, situé a http://forum.hardware.fr",
+"developer": {
+"name":"Forum HFR",
+"url":"http://forum.hardware.fr"
+},
+"icons":{
+"128":"/icon.png"
+},
+"fullscreen": "true",
+"origin": "app://forum.hardware.fr",
+"type":"web",
+"version":"0.0.1"
+}
