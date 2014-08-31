@@ -13,6 +13,11 @@
 },
 "fullscreen": "true",
 "origin": "app://forum.hardware.fr",
-"type":"web",
+"type": "privileged",
+  "permissions": {
+    "systemXHR": {
+      "description": "Allows loading remote content"
+    }
+  },
 "version":"0.0.1"
 }
