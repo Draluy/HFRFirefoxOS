@@ -1,1 +1,2 @@
-HFRFOS.HomeView = {}
+"use strict";
+this.HFRFOS.HomeView = {}

@@ -1,5 +1,6 @@
-HFRFOS = {};
-HFRFOS.Common = {};
+"use strict";
+this.HFRFOS = {};
+this.HFRFOS.Common = {};
 
 (
 	function (){
@@ -12,10 +13,12 @@ function createBoundedWrapper(object, method) {
 
 	function ajaxCallback  ()
 	{
-	    if ( this.request.readyState === 4) {
-	      if (this.request.status === 200) {
-	        this.internalCallback(this.request.responseText);
-	      }
+	    if ( this.request.readyState === 4)
+	    {
+	      	if (this.request.status === 200 || this.request.status === 0)
+	      	{
+    			this.internalCallback(this.request.responseText);
+	      	}
 	    }
 	};
 

@@ -1,4 +1,5 @@
-HFRFOS.MainController = {};
+"use strict";
+this.HFRFOS.MainController = {};
 
 (
 function ()

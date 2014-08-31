@@ -1,4 +1,5 @@
-HFRFOS.DataRetriever = {};
+"use strict";
+this.HFRFOS.DataRetriever = {};
 
 (
 function ()
