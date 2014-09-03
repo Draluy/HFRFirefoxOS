@@ -5,10 +5,23 @@ this.HFRFOS.MainController = {};
 function ()
 {
 
-	var processTemplate = function (categories)
+	var processTemplate = function (data)
 	{
-		var resultText = Mustache.render(this, categories);
+		var resultText = Mustache.render(this, data);
 		document.querySelector("#content").innerHTML = resultText;
+
+		//Add event listeners
+		for (var i = 0; i < data.categories.length; i++) {
+			var cat = data.categories[i];
+			var domNode  = document.querySelector('a#link'+cat.id);
+			domNode.addEventListener("click", 
+				(function (catId)
+				{
+					return function (){ HFRFOS.SubCategoriesController.displaySubCats(catId, "#content");};
+				})(cat.id)
+				, false);
+		};
+		
 	};
 
 	var  getViewTemplate= function (data)
@@ -27,4 +40,4 @@ function ()
 		displayHomeView();
 	};
 }
-)()
+)();

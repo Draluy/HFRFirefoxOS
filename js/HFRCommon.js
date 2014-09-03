@@ -1,15 +1,38 @@
 "use strict";
 this.HFRFOS = {};
 this.HFRFOS.Common = {};
+this.HFRFOS.Common.Html = {};
+this.HFRFOS.Common.Ajax = {};
 
 (
 	function (){
 
-function createBoundedWrapper(object, method) {
-  return function() {
-    return method.apply(object, arguments);
-  };
-}
+	HFRFOS.Common.Html.decodeEntities = (function() {
+	  	// this prevents any overhead from creating the object each time
+	  	var element = document.createElement('div');
+
+	  	function decodeHTMLEntities (str)
+	  	{
+	    	if(str && typeof str === 'string')
+	    	{
+				// strip script/html tags
+				str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
+				str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
+				element.innerHTML = str;
+				str = element.textContent;
+				element.textContent = '';
+	    	}
+
+	    	return str;
+	  	}
+		return decodeHTMLEntities;
+	})();
+
+	function createBoundedWrapper(object, method) {
+	  return function() {
+	    return method.apply(object, arguments);
+	  };
+	}
 
 	function ajaxCallback  ()
 	{
@@ -38,5 +61,6 @@ function createBoundedWrapper(object, method) {
 			this.request.responseType = "text";
 			this.request.send(data);
 	};
+
 
 })();
