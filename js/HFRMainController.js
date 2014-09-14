@@ -13,11 +13,19 @@ function ()
 		//Add event listeners
 		for (var i = 0; i < data.categories.length; i++) {
 			var cat = data.categories[i];
-			var domNode  = document.querySelector('a#link'+cat.id);
+			var domNode  = document.querySelector('a#subcategory_'+cat.id);
 			domNode.addEventListener("click", 
 				(function (catId)
 				{
 					return function (){ HFRFOS.SubCategoriesController.displaySubCats(catId, "#content");};
+				})(cat.id)
+				, false);
+
+			var domNode  = document.querySelector('a#category_'+cat.id);
+			domNode.addEventListener("click", 
+				(function (catId)
+				{
+					return function (){ HFRFOS.TopicsController.displayTopics(catId, "#content");};
 				})(cat.id)
 				, false);
 		};
