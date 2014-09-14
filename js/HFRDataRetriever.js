@@ -63,8 +63,8 @@ function ()
     {
     	this.id = id;
     	this.name = typeof name !== 'undefined' ? name : 0;
-		this.status = typeof status !== 'undefined' ? topicStatus.NONE : 0;
-		this.author = typeof author !== 'undefined' ? 'undefined' : 0;
+		this.status = typeof status !== 'undefined' ?  status: topicStatus.NONE;
+		this.author = typeof author !== 'undefined' ? author : 'undefined' ;
 		this.lastReadPage = typeof lastReadPage !== 'undefined' ? lastReadPage : -1;
 		this.lastReadPost = typeof lastReadPost !== 'undefined' ? lastReadPost : -1;
 		this.nbPosts = typeof nbPosts !== 'undefined' ? nbPosts : -1;
@@ -114,6 +114,43 @@ function ()
 		subcatsRequest.send(null);
 	};
 
+	var getStatusFromImgName = function (imgName)
+    {
+        if (imgName == null)
+        {
+            	return topicStatus.NONE;
+        }
+        else if (imgName == "flag1")
+        {
+                return topicStatus.NEW_CYAN;
+        }
+        else if (imgName == "flag0")
+        {
+                return topicStatus.NEW_ROUGE;
+        }
+        else if (imgName == "favoris")
+        {
+                return topicStatus.NEW_FAVORI;
+        }
+        else if (imgName == "closed")
+        {
+                return topicStatus.NO_NEW_POST;
+        }
+        else if (imgName == "closedbp")
+        {
+                return topicStatus.NEW_MP;
+        }
+        else if (imgName == "closedp")
+        {
+                return topicStatus.NO_NEW_MP;
+        }              
+        else
+        {
+                return topicStatus.NONE;        
+        }
+    }
+
+
 	HFRFOS.DataRetriever.getTopics = function (callback, catId, subcat, page, owntopic)
 	{
 		subcat = typeof subcat !== 'undefined' ? subcat : 0;
@@ -127,9 +164,35 @@ function ()
 			var returnedTopics = [];
 			while(topicsArray = TOPICS_REGEXP.exec(data))
 			{
-				var topicToAdd = new Topic(topicsArray[7], topicsArray[8], topicsArray[13]);
-				returnedTopics.push(topicToAdd);
-				console.log(topicToAdd);
+				if (topicsArray[1] != null)
+				{
+					currentCat =  new Category(topicsArray[1],'',topicsArray[2]);
+				}
+				else
+				{
+					
+					var isLocked = /lock\.gif/.test(topicsArray[3]);
+
+					var status = isLocked ? topicStatus.LOCKED : getStatusFromImgName(topicsArray[11] != null ? topicsArray[11] : topicsArray[5]);
+                    var nbPages = topicsArray[9] != null ? topicsArray[9] : 1;
+                    var lastReadPage = status == topicStatus.NEW_MP ? nbPages : (topicsArray[12]!= null ? topicsArray[12] : -1);
+
+					var topicToAdd = new Topic(topicsArray[7],
+						topicsArray[8],
+						status,
+						topicsArray[13], 
+						lastReadPage,
+						topicsArray[10] != null ? topicsArray[10] : -1,
+						topicsArray[14],
+						nbPages,
+						new Date(topicsArray[17], topicsArray[16] - 1, topicsArray[15], topicsArray[18], topicsArray[19], 0, 0),
+						topicsArray[20],
+                        topicsArray[4] != null,
+                        topicsArray[6] != null,
+                        currentCat);
+
+					returnedTopics.push(topicToAdd);
+				}
 			}
 			callback({'catid':catId,'topics':returnedTopics});
 		}

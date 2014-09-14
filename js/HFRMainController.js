@@ -25,7 +25,7 @@ function ()
 			domNode.addEventListener("click", 
 				(function (catId)
 				{
-					return function (){ HFRFOS.TopicsController.displayTopics(catId, "#content");};
+					return function (){ HFRFOS.TopicsController.displayTopics( "#content", catId);};
 				})(cat.id)
 				, false);
 		};

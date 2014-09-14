@@ -13,8 +13,17 @@ this.HFRFOS.SubCategoriesController = {};
 				document.querySelector(idToDisplayTo).innerHTML = resultText;
 
 				//add listeners
-				var domNode  = document.querySelector('a#home');
-				domNode.addEventListener("click", window.onload);
+				for (var i = 0; i < data.subcategories.length; i++) {
+					var subcat = data.subcategories[i];
+
+					var domNode  = document.querySelector('a#subcategory_'+subcat.id);
+					domNode.addEventListener("click", (function (subcatId)
+					{
+						return function (){ HFRFOS.TopicsController.displayTopics("#content", catId, subcatId);};
+					})(subcat.id)
+					,false);
+				}
+
 			},catId);
 
 		},"get","views/SubCategoriesView.html");

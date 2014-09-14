@@ -3,7 +3,7 @@ this.HFRFOS.TopicsController = {};
 (function ()
 {
 
-	HFRFOS.TopicsController.displayTopics = function (catId, idToDisplayTo)
+	HFRFOS.TopicsController.displayTopics = function (idToDisplayTo, catId, subcatId)
 	{
 		var viewRequest = new HFRFOS.Common.Ajax(function (templateData){
 			HFRFOS.DataRetriever.getTopics (function (data){
@@ -11,7 +11,7 @@ this.HFRFOS.TopicsController = {};
 				console.log(templateData);
 				var resultText = Mustache.render(templateData, data);
 				document.querySelector(idToDisplayTo).innerHTML = resultText;
-			},catId);
+			},catId, subcatId);
 
 		},"get","views/TopicsView.html");
 		viewRequest.send(null);
