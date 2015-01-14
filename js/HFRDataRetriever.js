@@ -6,24 +6,25 @@ function ()
 {
 
 /* To change from the java regexp to the javascript regexp follow these steps :
-1- \\s becomes \s
-2- \ becomes \/
-3- \\ becomes \
-4- .*? becomes [\s\S]*?
+1- \\ becomes \
+2- \ becomes \/ where needed
+3- .*? becomes [\s\S]*?
 */
 
 	var BASE_URL = "http://forum.hardware.fr";
 	var CATS_URL = BASE_URL + "/";
-	var CATS_REGEXP = /<tr[\s\S]*?id=\"cat([0-9]+)\"[\s\S]*?<td[\s\S]*?class=\"catCase1\"[\s\S]*?<b><a\s*href=\"\/hfr\/([a-zA-Z0-9-]+)\/[\s\S]*?\"\s*class=\"cCatTopic\">\s*([\s\S]+?)<\/a><\/b>[\s\S]*?<\/tr>/g;
+	var CATS_REGEXP = /<tr[\s\S]*?id=\"cat([0-9]+)\"[\s\S]*?<td[\s\S]*?class=\"catCase1\"[\s\S]*?<b><a\s*href=\"\/hfr\/([a-zA-Z0-9-]+)\/[\s\S]*?\"\s*class=\"cCatTopic\">\s*([\s\S]+?)<\/a><\/b>[\s\S]*?<\/tr>/gi;
 
 	var SUBCATS_URL = BASE_URL + "/message.php?&config=hfr.inc&cat={catid}";
 	var SUBCATS_URL_REGEXP = /\{catid\}/;
-	var SUBCATS_REGEXP = /<option\s*value=\"([0-9]+)\"\s*>(.+?)<\/option>/g;
+	var SUBCATS_REGEXP = /<option\s*value=\"([0-9]+)\"\s*>(.+?)<\/option>/gi;
 
 	var TOPICS_URL          = BASE_URL + "/forum1.php?config=hfr.inc&cat={cat}&subcat={subcat}&page={page}&owntopic={type}";
     var ALL_TOPICS_URL      = BASE_URL + "/forum1f.php?config=hfr.inc&owntopic={type}";
     var TOPICS_REGEXP		= /(?:(?:<th\s*class=\"padding\"[\s\S]*?<a\s*href=\"\/forum1\.php\?config=hfr\.inc&amp;cat=([0-9]+)[\s\S]*?\"\s*class=\"cHeader\">([\s\S]*?)<\/a><\/th>)|(<tr\s*class=\"sujet\s*ligne_booleen[\s\S]*?(ligne_sticky)?\"[\s\S]*?<td[\s\S]*?class=\"sujetCase1[\s\S]*?><img\s*src=\"[\s\S]*?([A-Za-z0-9]+)\.gif\"[\s\S]*?<td[\s\S]*?class=\"sujetCase3\"[\s\S]*?>(<span\s*class=\"red\"\s*title=\"[\s\S]*?\">\[non lu\]<\/span>\s*)?[\s\S]*?<a[\s\S]*?class=\"cCatTopic\"\s*title=\"Sujet n°([0-9]+)\">(.+?)<\/a><\/td>[\s\S]*?<td[\s\S]*?class=\"sujetCase4\"[\s\S]*?(?:(?:<a[\s\S]*?class=\"cCatTopic\">(.+?)<\/a>)|&nbsp;)<\/td>[\s\S]*?<td[\s\S]*?class=\"sujetCase5\"[\s\S]*?(?:(?:<a\s*href=\"[\s\S]*?#t([0-9]+)\"><img[\s\S]*?src=\"[\s\S]*?([A-Za-z0-9]+)\.gif\"\s*title=\"[\s\S]*?\(p\.([0-9]+)\)\"[\s\S]*?\/><\/a>)|&nbsp;)<\/td>[\s\S]*?<td[\s\S]*?class=\"sujetCase6[\s\S]*?>(?:<a\s*rel=\"nofollow\"\s*href=\"\/profilebdd[\s\S]*?>)?(.+?)(?:<\/a>)?<\/td>[\s\S]*?<td[\s\S]*?class=\"sujetCase7\"[\s\S]*?>(.+?)<\/td>[\s\S]*?<td[\s\S]*?class=\"sujetCase9[\s\S]*?>[\s\S]*?class=\"Tableau\">([0-9]+)-([0-9]+)-([0-9]+)[\s\S]*?([0-9]+):([0-9]+)<br \/><b>(.+?)<\/b>[\s\S]*?<\/td>[\s\S]*?<\/tr>))/gi;
-
+    
+    var POSTS_URL           = BASE_URL + "/forum2.php?config=hfr.inc&cat={cat}&post={topic}&page={page}";
+    var POSTS_REGEXP		= /(<table\s*cellspacing[\s\S]*?class=\"([a-z]+)\">[\s\S]*?<tr[\s\S]*?class=\"message[\s\S]*?<a[\s\S]*?href=\"#t([0-9]+)\"[\s\S]*?<b[\s\S]*?class=\"s2\">(?:<a[\s\S]*?>)?([\s\S]*?)(?:<\/a>)?<\/b>[\s\S]*?(?:(?:<div\s*class=\"avatar_center\"[\s\S]*?><img src=\"([\s\S]*?)\"\s*alt=\"[\s\S]*?\"\s*\/><\/div>)|<\/td>)[\s\S]*?<div[\s\S]*?class=\"left\">Posté le ([0-9]+)-([0-9]+)-([0-9]+)[\s\S]*?([0-9]+):([0-9]+):([0-9]+)[\s\S]*?<div[\s\S]*?id=\"para[0-9]+\">([\s\S]*?)<div style=\"clear: both;\">\s*<\/div><\/p>(?:<div\s*class=\"edited\">)?(?:<a[\s\S]*?>Message cité ([0-9]+) fois<\/a>)?(?:<br\s*\/>Message édité par [\s\S]*? le ([0-9]+)-([0-9]+)-([0-9]+)[\s\S]*?([0-9]+):([0-9]+):([0-9]+)<\/div>)?[\s\S]*?<\/div><\/td><\/tr><\/table>)/gi;
 
     var topicTypes = 
     {
@@ -76,6 +77,22 @@ function ()
 		this.category = typeof category !== 'undefined' ? category : null;
 		this.emailNotification = false;
     }
+
+   	function Post(id, content, pseudo, avatarUrl, date, lastEdition, nbCitations, isMine, isModo,  isDeleted,topic)
+    {
+            this.id = id;
+            this.content = content;
+            this.pseudo = typeof pseudo !== 'undefined' ? pseudo : null;
+            this.avatarUrl = typeof avatarUrl !== 'undefined' ? avatarUrl : null;
+            this.date = typeof date !== 'undefined' ? date : null;
+            this.lastEdition = typeof lastEdition !== 'undefined' ? lastEdition : null;
+            this.nbCitations = typeof nbCitations !== 'undefined' ? nbCitations : 0;
+            this.isMine = typeof isMine !== 'undefined' ? isMine : false;
+            this.isModo = typeof isModo !== 'undefined' ? isModo : false;
+            this.topic = typeof topic !== 'undefined' ? topic : null;
+            this.isDeleted = typeof isDeleted !== 'undefined' ? isDeleted : false;
+    }
+
 
 	HFRFOS.DataRetriever.getCategories = function (callback) {
 
@@ -220,6 +237,42 @@ function ()
 
 		var topicsRequest = new HFRFOS.Common.Ajax(reqListener,"get",topicsUrl);
 		topicsRequest.send(null);
+	}
+
+	HFRFOS.DataRetriever.getPosts = function (callback, catId, topicId, page)
+	{
+		var reqListener = function (data) {
+			var postsArray;
+			var returnedPosts = [];
+			while(postsArray = POSTS_REGEXP.exec(data))
+			{
+                var isMine = /edit\-in\.gif/.test(postsArray[1])
+                var isModo = /messageModo/.test(postsArray[1])
+                var isDeleted = "messagetabledel" == postsArray[2];
+                var postContent = postsArray[12];
+
+				var postToAdd = new Post(
+					postsArray[3],
+					postContent,
+					postsArray[4],
+					postsArray[5],
+					new Date(postsArray[8],postsArray[7]-1,postsArray[6],postsArray[9],postsArray[10],postsArray[11]),
+					postsArray[14] != null?new Date(postsArray[16],postsArray[15]-1,postsArray[14],postsArray[17],postsArray[18],postsArray[19]):null,
+					postsArray[13] != null ? postsArray[13] : 0,
+                    isMine,
+                    isModo,
+                    isDeleted,
+                    topicId
+				);
+				returnedPosts.push(postToAdd);
+			}
+			callback({'catid':catId,'posts':returnedPosts});
+		}
+
+		page = typeof page !== 'undefined' ? page : 0;
+		var postsUrl = POSTS_URL.replace(/\{cat\}/, catId).replace(/\{topic\}/, topicId).replace(/\{page\}/, page);
+		var postsRequest = new HFRFOS.Common.Ajax(reqListener,"get",postsUrl);
+		postsRequest.send(null);
 	}
 
 }

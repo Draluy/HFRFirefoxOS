@@ -37,7 +37,7 @@ function ()
 		HFRFOS.DataRetriever.getCategories(processTemplate.bind(data));
 	};
 
-	var displayHomeView = function ()
+	HFRFOS.MainController.displayHomeView = function ()
 	{
 		var viewRequest = new HFRFOS.Common.Ajax(getViewTemplate,"get","views/HomeView.html");
 		viewRequest.send(null);
@@ -45,7 +45,7 @@ function ()
 
 	window.onload = function ()
 	{
-		displayHomeView();
+		HFRFOS.MainController.displayHomeView();
 	};
 }
 )();
