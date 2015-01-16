@@ -1,5 +1,21 @@
-Categories
+<section role="region" data-type="list" class="vbox fit">
+  <header class="fixed">
+    <button><span class="icon icon-menu">menu</span></button>
+    <h1>Categories</h1>
+  </header>
+   <section class="gaia-list fit scroll sticky">
+  	<article class="">
+		<ul>
+			{{#categories}}
+			<li>
+				<a id="category_{{id}}" href="#">
+					<p>{{name}}</p>
+				</a>
+			</li>
+			{{/categories}}
+		</ul>
+	</article>
+</section>
+</section>
 
-{{#categories}}
-<div><a id="category_{{id}}" href="#">{{name}}</a> <a id="subcategory_{{id}}" href="#">sous-categories &gt;</a></div>
-{{/categories}}
+<!--<a id="subcategory_{{id}}" href="#">sous-categories &gt;</a>-->
