@@ -8,3 +8,31 @@ html {
 	display: flex;
 	height: 100%	
 }
+
+section[role="region"]
+{
+	background-color: white
+}
+
+section[data-type="sidebar"] fieldset legend
+{
+	color:#CCC;
+}
+
+section[role="region"][data-position="right"] {
+    position: absolute;
+}
+
+section[role="region"]:not(#drawer) {
+    left: 100%;
+    z-index: 90;
+    padding-left: 0px;
+}
+
+section.current[role="region"][data-position="right"]:not(#drawer) {
+  left: 0px;
+    z-index: 110;
+    animation: 0.4s ease 0s normal forwards 1 running rightToCurrent;
+}
+
+
