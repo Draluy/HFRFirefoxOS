@@ -54,31 +54,54 @@
     <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
     <h1>Categories</h1>
   </header>
-   <section data-type="list" class="fit scroll">
-  	<article class="">
-		<ul>
-			{{#categories}}
-			<li>
-				<a id="category_{{id}}" href="#">
-					<p>{{name}}</p>
-				</a>
-			</li>
-			{{/categories}}
-		</ul>
-	</article>
-</section>
+  <section data-type="list" class="fit scroll">
+  	<article>
+		  <ul>
+			 {{#categories}}
+			   <li>
+				  <a id="category_{{id}}" href="#">
+					 <p>{{name}}</p>
+				  </a>
+			   </li>
+			 {{/categories}}
+		  </ul>
+	  </article>
+  </section>
 
 </section>
-<section class="right" role="region" id="topics" data-position="right">
+
+<section class="vbox fit right" role="region" id="topics" data-position="right">
     <header class="fixed">
-      <a id="btn-buttons-back" href="#"><span class="icon icon-back">back</span></a>
+      <a id="topics-button-back" href="#"><span class="icon icon-back">back</span></a>
       <h1>Topics</h1>
     </header>
-    <article class="content scrollable header">
-      {{#topics}}
-      <div><a id="topic_{{id}}" href="#">{{id}} - {{name}}</a></div>
-      {{/topics}}
-    </article>
+ <div class="relative-scroll-container">       
+    <section data-type="list" class="fit scroll fix-scroll">
+      <article>
+        <ul>
+          {{#topics}}
+            <li>
+              <a id="topic_{{id}}" href="#"><p>{{id}} - {{name}}</p></a>
+            </li>
+          {{/topics}}
+        </ul>
+      </article>
+    </section>
+ </div>      
+</section>
+
+<section class="vbox fit right" role="region" id="posts" data-position="right">
+    <header class="fixed">
+      <a id="btn-buttons-back" href="#"><span class="icon icon-back">back</span></a>
+      <h1>Posts</h1>
+    </header>
+    <section data-type="list" class="fit scroll">
+      <article class="content scrollable header">
+        {{#posts}}
+          <div>{{pseudo}} - {{{content}}}</div>
+        {{/posts}}
+      </article>
+    </section>
   </section>
 	</div>
 </body>

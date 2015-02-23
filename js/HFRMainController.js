@@ -35,6 +35,10 @@ function ()
 	window.onload = function ()
 	{
 		HFRFOS.MainController.displayHomeView();
+
+		//add listeners
+		document.querySelector("#topics-button-back");
+
 	};
 }
 )();

@@ -3,15 +3,14 @@ this.HFRFOS.PostsController = {};
 (function ()
 {
 
-	HFRFOS.PostsController.displayPosts = function (idToDisplayTo, catId, topicId, page)
+	HFRFOS.PostsController.displayPosts = function (catId, topicId, page)
 	{
-		var viewRequest = new HFRFOS.Common.Ajax(function (templateData){
-			HFRFOS.DataRetriever.getPosts (function (data){
-				var resultText = Mustache.render(templateData, data);
-				document.querySelector(idToDisplayTo).innerHTML = resultText;
-			},catId, topicId, page);
+		HFRFOS.DataRetriever.getPosts (function (data){
+			var template = document.querySelector("#posts").innerHTML;
+			var resultText = Mustache.render(template, data);
+			document.querySelector("#posts").innerHTML = resultText;
 
-		},"get","views/PostsView.html");
-		viewRequest.send(null);
+			document.querySelector("#posts").className = "current";
+		},catId, topicId, page);
 	};
 })();

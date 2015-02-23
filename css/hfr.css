@@ -21,18 +21,26 @@ section[data-type="sidebar"] fieldset legend
 
 section[role="region"][data-position="right"] {
     position: absolute;
+    height:100%;
 }
 
 section[role="region"]:not(#drawer) {
     left: 100%;
-    z-index: 90;
+    z-index: 100;
     padding-left: 0px;
 }
 
 section.current[role="region"][data-position="right"]:not(#drawer) {
-  left: 0px;
-    z-index: 110;
+    left: 0px;
+    z-index: 100;
     animation: 0.4s ease 0s normal forwards 1 running rightToCurrent;
 }
 
+.relative-scroll-container{
+height: 100%;  
+}
 
+.fix-scroll
+{
+  height: calc(100% - 50px);  
+}

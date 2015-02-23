@@ -17,15 +17,12 @@ this.HFRFOS.TopicsController = {};
 				domNode.addEventListener("click", 
 				(function (topicId)
 				{
-					return function (){ HFRFOS.PostsController.displayPosts("#content", catId, topicId);};
+					return function (){ HFRFOS.PostsController.displayPosts(catId, topicId);};
 				})(topic.id)
 				, false);
 			}
-
-			//shift the section in place
-			/*document.querySelector("#drawer").classList.remove("current");
-			document.querySelector("#drawer").classList.add("left");*/
-			document.querySelector("#topics").className = "current";
+			document.querySelector("#topics").classList.remove("right");
+			document.querySelector("#topics").classList.add("current");
 
 		},catId, subcatId);
 	}
