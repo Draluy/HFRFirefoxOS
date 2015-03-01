@@ -1,5 +1,13 @@
-Posts:
-
-{{#posts}}
-{{pseudo}} - {{{content}}}<br/>
-{{/posts}}
+ <header class="fixed">
+      <a id="posts-button-back" href="#"><span class="icon icon-back">back</span></a>
+      <h1>Posts</h1>
+    </header>
+    <div class="relative-scroll-container">
+      <section data-type="list" class="fit scroll  fix-scroll">
+        <article>
+          {{#posts}}
+            <div>{{pseudo}} - {{{content}}}</div>
+          {{/posts}}
+        </article>
+      </section>
+    </div>

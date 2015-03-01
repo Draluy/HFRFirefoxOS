@@ -1,5 +1,18 @@
-Topics:
-
-{{#topics}}
-<div><a id="topic_{{id}}" href="#">{{id}} - {{name}}</a></div>
-{{/topics}}
+ <header class="fixed">
+    <a id="topics-button-back" href="#"><span class="icon icon-back">back</span></a>
+    <h1>Topics</h1>
+  </header>
+  <div class="relative-scroll-container">
+    <section data-type="list" class="fit scroll fix-scroll">
+      <article>
+        <ul>
+          {{#topics}}
+            <li>
+              <aside class="pack-end favori">★</aside>
+              <a id="topic_{{id}}" href="#"><p>{{id}} - {{{name}}}</p></a>
+            </li>
+          {{/topics}}
+        </ul>
+      </article>
+    </section>
+  </div>      

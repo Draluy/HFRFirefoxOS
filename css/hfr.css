@@ -44,3 +44,10 @@ height: 100%;
 {
   height: calc(100% - 50px);  
 }
+
+.favori
+{
+  font-size: 2em;
+  color: yellow;
+  text-shadow: 0px 0px 2px black, 0px 0px 5px black;  
+}

@@ -19,7 +19,9 @@ function ()
 			domNode.addEventListener("click", 
 				(function (catId)
 				{
-					return function (){ HFRFOS.TopicsController.displayTopics(catId);};
+					return function (){
+						HFRFOS.TopicsController.displayTopics(catId);
+					};
 				})(cat.id)
 				, false);
 		};
@@ -35,10 +37,6 @@ function ()
 	window.onload = function ()
 	{
 		HFRFOS.MainController.displayHomeView();
-
-		//add listeners
-		document.querySelector("#topics-button-back");
-
 	};
 }
 )();

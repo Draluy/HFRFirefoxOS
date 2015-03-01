@@ -6,11 +6,25 @@ this.HFRFOS.PostsController = {};
 	HFRFOS.PostsController.displayPosts = function (catId, topicId, page)
 	{
 		HFRFOS.DataRetriever.getPosts (function (data){
-			var template = document.querySelector("#posts").innerHTML;
-			var resultText = Mustache.render(template, data);
-			document.querySelector("#posts").innerHTML = resultText;
+			var postsRequest = new HFRFOS.Common.Ajax(function (template){
 
-			document.querySelector("#posts").className = "current";
+				var resultText = Mustache.render(template, data);
+				var postsSection = document.querySelector("#posts");
+				postsSection.innerHTML = resultText;
+
+				postsSection.classList.remove("right");
+				postsSection.classList.add("current");
+
+					//Add listener to the back button	
+				var postsToTopics = function ()
+				{
+					postsSection.classList.add("right");
+					postsSection.classList.remove("current");
+				}
+				document.querySelector("#posts-button-back").addEventListener("click",postsToTopics, false);
+			},"get","views/PostsView.html");
+			postsRequest.send(null);
+
 		},catId, topicId, page);
 	};
 })();
