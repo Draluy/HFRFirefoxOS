@@ -25,58 +25,58 @@
 <body>
 	<div id="content">
 		<section data-type="sidebar">
-  <header>
-    <menu type="toolbar">
-      <a href="#content"><span class="">Done</span></a>
-    </menu>
-    <h1>Options</h1>
+      <header>
+        <menu type="toolbar">
+          <a href="#content"><span class="">Done</span></a>
+        </menu>
+        <h1>Options</h1>
 
-  </header>
-  <form>
- <fieldset>
-  <legend class="action">Identifiants</legend>
-  <section>
-    <p>
-      <input kl_virtual_keyboard_secure_input="on" placeholder="Login" required="" type="text">
-      <button type="reset">Clear</button>
-    </p>
-    <p>
-      <input kl_virtual_keyboard_secure_input="on" placeholder="Mot de passe" required="" type="text">
-      <button type="reset">Clear</button>
-    </p>
-  </section>
-</fieldset>
-</form>
-</section>
-<section role="region" id="drawer" class="vbox fit current" data-position="current">
-  <header class="fixed">
-    <a href="#content"><span class="icon icon-menu">hide sidebar</span></a>
-    <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
-    <h1>Categories</h1>
-  </header>
-  <section data-type="list" class="fit scroll">
-  	<article>
-		  <ul>
-			 {{#categories}}
-			   <li>
-				  <a id="category_{{id}}" href="#">
-					 <p>{{name}}</p>
-				  </a>
-			   </li>
-			 {{/categories}}
-		  </ul>
-	  </article>
-  </section>
+      </header>
+      <form>
+     <fieldset>
+      <legend class="action">Identifiants</legend>
+      <section>
+        <p>
+          <input kl_virtual_keyboard_secure_input="on" placeholder="Login" required="" type="text">
+          <button type="reset">Clear</button>
+        </p>
+        <p>
+          <input kl_virtual_keyboard_secure_input="on" placeholder="Mot de passe" required="" type="text">
+          <button type="reset">Clear</button>
+        </p>
+      </section>
+    </fieldset>
+    </form>
+    </section>
+    <section role="region" id="drawer" class="vbox fit current" data-position="current">
+      <header class="fixed">
+        <a href="#content"><span class="icon icon-menu">hide sidebar</span></a>
+        <a href="#drawer"><span class="icon icon-menu">show sidebar</span></a>
+        <h1>Categories</h1>
+      </header>
+      <section data-type="list" class="fit scroll">
+      	<article>
+    		  <ul>
+    			 {{#categories}}
+    			   <li>
+    				  <a id="category_{{id}}" href="#">
+    					 <p>{{name}}</p>
+    				  </a>
+    			   </li>
+    			 {{/categories}}
+    		  </ul>
+    	  </article>
+      </section>
 
-</section>
+    </section>
 
-<section class="vbox fit right" role="region" id="topics" data-position="right">
-  
-</section>
+    <section class="vbox fit right" role="region" id="topics" data-position="right">
+      
+    </section>
 
-<section class="vbox fit right" role="region" id="posts" data-position="right">
+    <section class="vbox fit right" role="region" id="posts" data-position="right">
    
-  </section>
+    </section>
 	</div>
 </body>
 </html>

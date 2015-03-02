@@ -26,7 +26,7 @@ function ()
     var POSTS_URL           = BASE_URL + "/forum2.php?config=hfr.inc&cat={cat}&post={topic}&page={page}";
     var POSTS_REGEXP		= /(<table\s*cellspacing[\s\S]*?class=\"([a-z]+)\">[\s\S]*?<tr[\s\S]*?class=\"message[\s\S]*?<a[\s\S]*?href=\"#t([0-9]+)\"[\s\S]*?<b[\s\S]*?class=\"s2\">(?:<a[\s\S]*?>)?([\s\S]*?)(?:<\/a>)?<\/b>[\s\S]*?(?:(?:<div\s*class=\"avatar_center\"[\s\S]*?><img src=\"([\s\S]*?)\"\s*alt=\"[\s\S]*?\"\s*\/><\/div>)|<\/td>)[\s\S]*?<div[\s\S]*?class=\"left\">Posté le ([0-9]+)-([0-9]+)-([0-9]+)[\s\S]*?([0-9]+):([0-9]+):([0-9]+)[\s\S]*?<div[\s\S]*?id=\"para[0-9]+\">([\s\S]*?)<div style=\"clear: both;\">\s*<\/div><\/p>(?:<div\s*class=\"edited\">)?(?:<a[\s\S]*?>Message cité ([0-9]+) fois<\/a>)?(?:<br\s*\/>Message édité par [\s\S]*? le ([0-9]+)-([0-9]+)-([0-9]+)[\s\S]*?([0-9]+):([0-9]+):([0-9]+)<\/div>)?[\s\S]*?<\/div><\/td><\/tr><\/table>)/gi;
 
-    var topicTypes = 
+    HFRFOS.DataRetriever.topicTypes = 
     {
     	ALL 	: {value : 0, label:"all"},
         CYAN 	:{value :1,label: "cyan"},
@@ -34,7 +34,7 @@ function ()
         FAVORI 	:{value :3, label:"favori"}
     }
 
-	var topicStatus =
+	HFRFOS.DataRetriever.topicStatus =
 	{
 		NEW_CYAN 	:0 ,
 		NEW_ROUGE	:1 ,
@@ -133,38 +133,32 @@ function ()
 
 	var getStatusFromImgName = function (imgName)
     {
-        if (imgName == null)
+        if (imgName == "flag1")
         {
-            	return topicStatus.NONE;
-        }
-        else if (imgName == "flag1")
-        {
-                return topicStatus.NEW_CYAN;
+                return HFRFOS.DataRetriever.topicStatus.NEW_CYAN;
         }
         else if (imgName == "flag0")
         {
-                return topicStatus.NEW_ROUGE;
+                return HFRFOS.DataRetriever.topicStatus.NEW_ROUGE;
         }
         else if (imgName == "favoris")
         {
-                return topicStatus.NEW_FAVORI;
+                return HFRFOS.DataRetriever.topicStatus.NEW_FAVORI;
         }
         else if (imgName == "closed")
         {
-                return topicStatus.NO_NEW_POST;
+                return HFRFOS.DataRetriever.topicStatus.NO_NEW_POST;
         }
         else if (imgName == "closedbp")
         {
-                return topicStatus.NEW_MP;
+                return HFRFOS.DataRetriever.topicStatus.NEW_MP;
         }
         else if (imgName == "closedp")
         {
-                return topicStatus.NO_NEW_MP;
+                return HFRFOS.DataRetriever.topicStatus.NO_NEW_MP;
         }              
-        else
-        {
-                return topicStatus.NONE;        
-        }
+       
+        return HFRFOS.DataRetriever.topicStatus.NONE;        
     }
 
 
@@ -190,9 +184,9 @@ function ()
 					
 					var isLocked = /lock\.gif/.test(topicsArray[3]);
 
-					var status = isLocked ? topicStatus.LOCKED : getStatusFromImgName(topicsArray[11] != null ? topicsArray[11] : topicsArray[5]);
+					var status = isLocked ? HFRFOS.DataRetriever.topicStatus.LOCKED : getStatusFromImgName(topicsArray[11] != null ? topicsArray[11] : topicsArray[5]);
                     var nbPages = topicsArray[9] != null ? topicsArray[9] : 1;
-                    var lastReadPage = status == topicStatus.NEW_MP ? nbPages : (topicsArray[12]!= null ? topicsArray[12] : -1);
+                    var lastReadPage = status == HFRFOS.DataRetriever.topicStatus.NEW_MP ? nbPages : (topicsArray[12]!= null ? topicsArray[12] : -1);
 
 					var topicToAdd = new Topic(topicsArray[7],
 						topicsArray[8],

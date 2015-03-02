@@ -8,7 +8,8 @@
         <ul>
           {{#topics}}
             <li>
-              <aside class="pack-end favori">★</aside>
+              <!--<aside class="pack-end favori"></aside>-->
+              {{#view.locked}}<aside class="locked"></aside>{{/view.locked}}
               <a id="topic_{{id}}" href="#"><p>{{id}} - {{{name}}}</p></a>
             </li>
           {{/topics}}

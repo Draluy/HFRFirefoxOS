@@ -51,3 +51,15 @@ height: 100%;
   color: yellow;
   text-shadow: 0px 0px 2px black, 0px 0px 5px black;  
 }
+
+.favori::before {
+    content: "★";
+} 
+
+.locked {
+  font-size : 2em;
+}
+
+.locked::before {
+    content: "\1F512";
+} 

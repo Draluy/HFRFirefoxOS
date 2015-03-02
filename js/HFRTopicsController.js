@@ -9,11 +9,21 @@ this.HFRFOS.TopicsController = {};
 			var section = document.querySelector("#topics");
 
 			var topicsRequest = new HFRFOS.Common.Ajax(function (template){
+
+				for (var i = 0; i < data.topics.length; i++) {
+					var topic = data.topics[i];
+
+					topic.view = {
+						locked : topic.status === HFRFOS.DataRetriever.topicStatus.LOCKED
+					};
+				}
+
 				var resultText = Mustache.render(template, data);
 				section.innerHTML = resultText;
 
 				for (var i = 0; i < data.topics.length; i++) {
 					var topic = data.topics[i];
+
 					var domNode  = document.querySelector('a#topic_'+topic.id);
 
 					domNode.addEventListener("click", 
