@@ -8,6 +8,14 @@ this.HFRFOS.PostsController = {};
 		HFRFOS.DataRetriever.getPosts (function (data){
 			var postsRequest = new HFRFOS.Common.Ajax(function (template){
 
+				for (var i = 0; i < data.posts.length; i++) {
+					var post = data.posts[i];
+
+					post.view = {
+						localizedDate : new Date(post.date).toLocaleString()
+					};
+				}
+
 				var resultText = Mustache.render(template, data);
 				var postsSection = document.querySelector("#posts");
 				postsSection.innerHTML = resultText;

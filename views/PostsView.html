@@ -3,10 +3,14 @@
       <h1>Posts</h1>
     </header>
     <div class="relative-scroll-container">
-      <section data-type="list" class="fit scroll  fix-scroll">
+      <section data-type="posts" class="fit scroll  fix-scroll">
         <article>
           {{#posts}}
-            <div>{{pseudo}} - {{{content}}}</div>
+            <div class="post">
+              <p><span class="pseudo">{{pseudo}}</span> le <time datetime="{{view.localizedDate}}">{{view.localizedDate}}</time></p>
+              {{#avatarUrl}}<img src="{{avatarUrl}}"/>{{/avatarUrl}}
+              <p>{{{content}}}</p>
+            </div>
           {{/posts}}
         </article>
       </section>
