@@ -59,6 +59,10 @@ this.HFRFOS.Common.Ajax = {};
 	{
 			this.request.open(this.method, this.url, true);
 			this.request.responseType = "text";
+			if (this.method.toUpperCase() == "POST")
+			{
+				this.request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			}
 			this.request.send(data);
 	};
 
