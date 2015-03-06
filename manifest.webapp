@@ -8,7 +8,9 @@
 "url":"http://forum.hardware.fr"
 },
 "icons":{
-"128":"/icon.png"
+"128":"/hfr128.png",
+"256":"/hfr256.png",
+"512":"/hfr512.png"
 },
 "fullscreen": "true",
 "origin": "app://forum.hardware.fr",
