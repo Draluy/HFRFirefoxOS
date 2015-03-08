@@ -1,8 +1,7 @@
 "use strict";
 this.HFRFOS.MainController = {};
 
-(
-function ()
+(function ()
 {
 
 	var processTemplate = function (data)
@@ -25,18 +24,16 @@ function ()
 				})(cat.id)
 				, false);
 		};
-
 	};
 
 	HFRFOS.MainController.displayHomeView = function ()
 	{
-		
 		HFRFOS.DataRetriever.getCategories(processTemplate);
 	}
 
-	window.onload = function ()
+	window.addEventListener("load",function ()
 	{
 		HFRFOS.MainController.displayHomeView();
-	};
-}
-)();
+	},false);
+
+})();
